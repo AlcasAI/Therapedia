@@ -1,0 +1,53 @@
+import type { Metadata, Viewport } from "next";
+import "./globals.css";
+import { BottomNav } from "@/components/layout/BottomNav";
+import { PwaRegister } from "@/components/PwaRegister";
+import { APP_NAME, APP_SHORT_NAME } from "@/lib/config";
+
+export const metadata: Metadata = {
+  title: {
+    default: APP_NAME,
+    template: `%s · ${APP_SHORT_NAME}`,
+  },
+  description:
+    "Mobile reference library of clinical protocols for healthcare professionals. Not a patient app and not a clinical decision support system.",
+  manifest: "/manifest.json",
+  applicationName: APP_NAME,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: APP_SHORT_NAME,
+  },
+  icons: {
+    icon: "/icons/icon-192.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
+  formatDetection: { telephone: false },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#256d70",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="it">
+      <body>
+        <div className="mx-auto flex min-h-dvh max-w-app flex-col">
+          {/* Content area leaves room for the fixed bottom nav. */}
+          <main className="flex-1 pb-24">{children}</main>
+        </div>
+        <BottomNav />
+        <PwaRegister />
+      </body>
+    </html>
+  );
+}
