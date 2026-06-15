@@ -241,16 +241,34 @@ src/
 
 ---
 
-## ☁️ Deployment
+## ☁️ Deployment — get a live link in ~1 click
 
-The easiest path is **Vercel**:
+The fastest way to get a shareable HTTPS link (which also powers PWA install and
+the mobile app) is **Vercel**:
 
-1. Push this repo to GitHub.
-2. Import it in Vercel.
-3. (Optional) add the Supabase env vars in the Vercel project settings.
-4. Deploy. The PWA + service worker are served over HTTPS automatically.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/alcasai/therapedia&project-name=clinical-protocol-hub&repository-name=clinical-protocol-hub)
 
-Any platform that runs Next.js 14 works (Netlify, Render, a Node server, etc.).
+**Or import your existing repo (recommended for ongoing work):**
+
+1. Go to <https://vercel.com/new> and sign in with GitHub.
+2. **Import** the `alcasai/therapedia` repository.
+3. Under *Settings → Git*, deploy the branch you want
+   (e.g. `claude/ecstatic-galileo-feafdr`), or merge it to `main` first.
+4. (Optional) add `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   in *Settings → Environment Variables* to enable Supabase mode.
+   Leave them empty to run in mock mode.
+5. **Deploy.** You get a URL like `https://clinical-protocol-hub.vercel.app`.
+
+No build configuration is needed — Vercel auto-detects Next.js. The PWA +
+service worker are served over HTTPS automatically, so the app is immediately
+installable from the link (see *Installing the PWA* above).
+
+> Any platform that runs Next.js 14 works too (Netlify, Render, a Node server…).
+
+### 📲 Turn it into a real mobile app (App Store / Google Play)
+
+Once you have the live link, wrap the same app into a native Android/iOS app with
+**Capacitor** — no rewrite. Full step-by-step in **[MOBILE.md](./MOBILE.md)**.
 
 ---
 
