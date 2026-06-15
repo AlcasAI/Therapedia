@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { PwaRegister } from "@/components/PwaRegister";
+import { UnderConstructionBanner } from "@/components/UnderConstructionBanner";
 import { APP_NAME, APP_SHORT_NAME, asset } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -44,7 +45,9 @@ export default function RootLayout({
   return (
     <html lang="it">
       <body>
-        <div className="mx-auto flex min-h-dvh max-w-app flex-col">
+        {/* Fixed "work in progress" banner (h-8); content is offset by pt-8. */}
+        <UnderConstructionBanner />
+        <div className="mx-auto flex min-h-dvh max-w-app flex-col pt-8">
           {/* Content area leaves room for the fixed bottom nav. */}
           <main className="flex-1 pb-24">{children}</main>
         </div>
