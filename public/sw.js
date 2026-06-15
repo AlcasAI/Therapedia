@@ -6,10 +6,21 @@
 //     when online), falling back to the cached shell when offline.
 //   - Cache-first for same-origin static assets (icons, protocol files).
 //
+// BASE is derived from the service worker's own location, so this file works
+// unchanged whether the app is served from the root ("/") or from a GitHub
+// Pages subdirectory ("/therapedia/").
+//
 // Full offline protocol access is on the roadmap (see README).
 
+const BASE = new URL("./", self.location).pathname; // "/" or "/<repo>/"
 const CACHE = "cph-v1";
-const SHELL = ["/", "/protocols", "/contacts", "/profile", "/manifest.json"];
+const SHELL = [
+  BASE,
+  `${BASE}protocols`,
+  `${BASE}contacts`,
+  `${BASE}profile`,
+  `${BASE}manifest.webmanifest`,
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -45,7 +56,9 @@ self.addEventListener("fetch", (event) => {
           caches.open(CACHE).then((c) => c.put(request, copy));
           return res;
         })
-        .catch(() => caches.match(request).then((r) => r || caches.match("/")))
+        .catch(() =>
+          caches.match(request).then((r) => r || caches.match(BASE))
+        )
     );
     return;
   }

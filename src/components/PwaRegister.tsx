@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { BASE_PATH } from "@/lib/config";
 
 /** Registers the service worker for installable/offline-shell PWA support. */
 export function PwaRegister() {
@@ -15,7 +16,7 @@ export function PwaRegister() {
     }
     const onLoad = () => {
       navigator.serviceWorker
-        .register("/sw.js")
+        .register(`${BASE_PATH}/sw.js`, { scope: `${BASE_PATH}/` })
         .catch(() => {
           /* registration is best-effort in this MVP */
         });

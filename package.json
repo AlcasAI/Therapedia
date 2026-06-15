@@ -4,7 +4,9 @@
   "private": true,
   "description": "A mobile-first PWA for physicians to consult clinical protocols. Reference tool only — not a patient app and not a clinical decision support system.",
   "scripts": {
+    "predev": "node scripts/generate-manifest.js",
     "dev": "next dev",
+    "prebuild": "node scripts/generate-manifest.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

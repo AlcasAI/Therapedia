@@ -265,6 +265,36 @@ installable from the link (see *Installing the PWA* above).
 
 > Any platform that runs Next.js 14 works too (Netlify, Render, a Node server…).
 
+### Alternative: free hosting on GitHub Pages
+
+You can also host it **free on GitHub Pages** as a static export. A workflow is
+already included at `.github/workflows/deploy-pages.yml`.
+
+1. In your repo: **Settings → Pages → Build and deployment → Source = GitHub
+   Actions**.
+2. Push to `main` (or the configured branch) — or run the **Deploy to GitHub
+   Pages** workflow manually from the *Actions* tab.
+3. Your site goes live at `https://<owner>.github.io/<repo>/`
+   (e.g. `https://alcasai.github.io/therapedia/`).
+
+How it works: the workflow builds with `GITHUB_PAGES=true` and sets
+`NEXT_PUBLIC_BASE_PATH=/<repo>` automatically, so Next.js produces a static
+export (`out/`) with all asset, manifest, service-worker, and PDF paths
+correctly prefixed for the subdirectory.
+
+**GitHub Pages caveats:**
+
+- It is a **static, mock-mode** deployment by default (no server). The included
+  sample protocols and the admin demo (saved to `localStorage`) work fully.
+  To use **live Supabase data**, add `NEXT_PUBLIC_SUPABASE_URL` /
+  `NEXT_PUBLIC_SUPABASE_ANON_KEY` as repo **Secrets** and pass them in the
+  workflow's build step (they're read client-side).
+- Because routes are pre-rendered, protocols created in the browser don't get
+  their own static `edit` page on Pages — fine for a demo; a live backend makes
+  this fully dynamic.
+- Local dev and Vercel are **unaffected** — they run at the root path with no
+  base path. The static-export settings only activate when `GITHUB_PAGES=true`.
+
 ### 📲 Turn it into a real mobile app (App Store / Google Play)
 
 Once you have the live link, wrap the same app into a native Android/iOS app with

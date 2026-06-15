@@ -8,7 +8,11 @@
   "orientation": "portrait",
   "background_color": "#f8fafc",
   "theme_color": "#256d70",
-  "categories": ["medical", "productivity", "reference"],
+  "categories": [
+    "medical",
+    "productivity",
+    "reference"
+  ],
   "icons": [
     {
       "src": "/icons/icon-192.png",
